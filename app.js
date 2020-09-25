@@ -9,16 +9,22 @@ if(!fs.existsSync("./docs")){
 }
 
 //write to files
-fs.writeFile("./docs/myBlog1.txt", "Hello! \nThis is my first blog. ", (err) => {
-    if(err) console.log(err)
-    console.log("Writed to myBlog1.txt")
-});
+if(fs.existsSync("./docs")){
+    fs.writeFile("./docs/myBlog1.txt", "Hello! \nThis is my first blog. ", (err) => {
+        if(err) console.log(err)
+        console.log("Writed to myBlog1.txt")
+    });
+}
+
 
 //read from files
-fs.readFile("./docs/myBlog1.txt", (err, data) => {
-    if(err) console.log(err)
-    console.log(data.toString());
-});
+if(fs.existsSync("./docs/myBlog1.txt")){
+    fs.readFile("./docs/myBlog1.txt", (err, data) => {
+        if(err) console.log(err)
+        console.log(data.toString());
+    });
+}
+
 
 //making a webserver
 const http = require('http');
@@ -37,4 +43,16 @@ fs.readFile("./frontEnd/index.html", (err, html) => {
     server.listen(port, hostname, () => {
         console.log(`Server running at http://${hostname}:${port}/`);
     });
+});
+
+//remove file in directory
+fs.unlink("./docs/myBlog1.txt", (err) => {
+    if(err) console.log(err)
+    console.log("removed ./docs/myBlog1.txt");
+});
+
+//remove directory
+fs.rmdir("./docs", (err) => {
+    if(err) console.log(err);
+    console.log("Removed directry ./docs");
 });
